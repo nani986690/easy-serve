@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Easy Serve</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&family=DM+Mono&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar" class="hidden">
+  <span class="nav-logo">🍽 Easy Serve</span>
+  <div class="nav-right">
+    <span class="nav-table" id="nav-table">Table —</span>
+    <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+    <button class="cart-btn" onclick="openCart()" id="cart-nav-btn" style="display:none">
+      🛒<span class="cart-badge" id="cart-badge">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== WELCOME PAGE ===== -->
+<div id="welcome" class="page">
+  <div class="welcome-icon">🍽️</div>
+  <h1 class="welcome-title">Welcome to<br><span style="color:var(--brand)">La Bella</span></h1>
+  <p class="welcome-subtitle">Fine Dining Experience</p>
+  <div class="table-chip">📍 Table <span id="welcome-table">—</span></div>
+  <button class="btn btn-primary" style="font-size:1.05rem;padding:14px 36px;" onclick="showPage('menu')">
+    View Our Menu →
+  </button>
+  <div class="welcome-info">
+    <div class="info-item">🕐 Open until 11 PM</div>
+    <div class="info-item">⭐ 4.8 Rated</div>
+    <div class="info-item">🚀 Fast Service</div>
+  </div>
+  <div style="margin-top:40px;">
+    <button class="btn btn-outline btn-sm" onclick="showPage('admin')" style="color:var(--text2);font-size:.8rem;">
+      👨‍💼 Admin Dashboard
+    </button>
+  </div>
+</div>
+
+<!-- ===== MENU PAGE ===== -->
+<div id="menu" class="page">
+  <div class="categories" id="categories"></div>
+  <div class="menu-grid" id="menu-grid"></div>
+</div>
+
+<!-- ===== ORDER CONFIRM ===== -->
+<div id="confirm" class="page">
+  <div class="confirm-icon">✅</div>
+  <h1 class="confirm-title">Order Placed!</h1>
+  <p class="confirm-sub">Hang tight, we're preparing your food.</p>
+  <div class="eta">⏱ Estimated time: <span id="eta-time">20–25 min</span></div>
+  <div class="order-summary-card" id="confirm-items"></div>
+  <button class="btn btn-primary" onclick="showPage('menu')">Back to Menu</button>
+  <div style="margin-top:12px;">
+    <button class="btn btn-outline btn-sm" onclick="showPage('admin')">View Admin Dashboard</button>
+  </div>
+</div>
+
+<!-- ===== ADMIN PAGE ===== -->
+<div id="admin" class="page">
+  <div class="admin-header">
+    <h2 class="admin-title">📊 Dashboard</h2>
+    <div class="admin-controls">
+      <select class="filter-select" id="table-filter" onchange="renderAdmin()">
+        <option value="all">All Tables</option>
+      </select>
+      <button class="btn btn-outline btn-sm" onclick="showPage('welcome')">← Back</button>
+    </div>
+  </div>
+  <div class="revenue-grid" id="revenue-grid"></div>
+  <div class="kanban" id="kanban"></div>
+</div>
+
+<!-- CART DRAWER -->
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="drawer-head">
+    <h2>🛒 Your Cart</h2>
+    <button class="close-btn" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items-list"></div>
+  <div class="drawer-foot" id="cart-foot" style="display:none">
+    <div class="totals">
+      <div class="total-row"><span>Subtotal</span><span id="sub-total">₹0.00</span></div>
+      <div class="total-row"><span>Tax (9%)</span><span id="tax-total">₹0.00</span></div>
+      <div class="total-row grand"><span>Total</span><span id="grand-total">₹0.00</span></div>
+    </div>
+    <button class="btn btn-primary btn-full" onclick="placeOrder()">Place Order 🚀</button>
+  </div>
+</div>
+
+<!-- FLOAT CART -->
+<button class="float-cart hidden" id="float-cart" onclick="openCart()">
+  🛒 View Cart • <span id="float-count">0 items</span> • <span id="float-total">₹0</span>
+</button>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
