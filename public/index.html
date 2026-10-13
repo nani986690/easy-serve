@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>QR Restaurant</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍽</text></svg>"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&family=DM+Mono&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a class="nav-logo" href="#" onclick="navTo('welcome');return false"><i class="fa-solid fa-qrcode"></i> QR Restaurant</a>
+  <ul class="nav-menu" id="nav-menu">
+    <li><a href="#" data-page="welcome" onclick="navTo('welcome');return false">Home</a></li>
+    <li><a href="#" data-page="menu" onclick="navTo('menu');return false">Menu</a></li>
+    <li><a href="#" onclick="navTo('welcome','how-it-works');return false">How It Works</a></li>
+    <li><a href="#" data-page="admin" onclick="navTo('admin');return false">Admin</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="nav-table" id="nav-table"><i class="fa-solid fa-location-dot"></i> Table —</span>
+    <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+    <button class="cart-btn" onclick="openCart()" id="cart-nav-btn" aria-label="Open cart">
+      <i class="fa-solid fa-cart-shopping"></i><span class="cart-badge" id="cart-badge">0</span>
+    </button>
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</nav>
+
+<!-- ===== WELCOME / LANDING PAGE ===== -->
+<div id="welcome" class="page">
+  <header class="hero">
+    <div class="hero-qr"><i class="fa-solid fa-qrcode"></i></div>
+    <div class="table-chip"><i class="fa-solid fa-location-dot"></i> Table <span id="welcome-table">—</span></div>
+    <h1 class="welcome-title">Welcome to <span>QR Restaurant</span></h1>
+    <p class="welcome-subtitle">Scan, order and relax. Your food comes straight to the table.</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary" onclick="showPage('menu')"><i class="fa-solid fa-book-open"></i> View Our Menu</button>
+      <button class="btn btn-outline" onclick="navTo('welcome','how-it-works')">How it works</button>
+    </div>
+    <div class="welcome-info">
+      <div class="info-item"><i class="fa-regular fa-clock"></i> Open until 11 PM</div>
+      <div class="info-item"><i class="fa-solid fa-star"></i> 4.8 Rated</div>
+      <div class="info-item"><i class="fa-solid fa-bolt"></i> Fast Service</div>
+    </div>
+  </header>
+
+  <!-- POPULAR ITEMS -->
+  <section class="popular-section" id="popular">
+    <div class="section-head">
+      <h2 class="section-title">Popular right now</h2>
+      <button class="btn btn-outline btn-sm" onclick="showPage('menu')">See full menu</button>
+    </div>
+    <div class="menu-grid" id="popular-grid"></div>
+  </section>
+
+  <!-- FEATURES HIGHLIGHT -->
+  <section class="features-section">
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon"><i class="fa-solid fa-bolt"></i></div><h3>Fast Ordering</h3><p>Place your order in seconds</p></div>
+      <div class="feature-card"><div class="feature-icon"><i class="fa-solid fa-mobile-screen-button"></i></div><h3>Contactless Dining</h3><p>Safe and hygienic experience</p></div>
+      <div class="feature-card"><div class="feature-icon"><i class="fa-solid fa-utensils"></i></div><h3>Real-Time Updates</h3><p>Track your order easily</p></div>
+      <div class="feature-card"><div class="feature-icon"><i class="fa-solid fa-users"></i></div><h3>Better Service</h3><p>More time to enjoy with family & friends</p></div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="section-subtitle">HOW IT WORKS</div>
+    <h2 class="section-title">Simple Steps to a <span>Better Dining Experience</span></h2>
+    <div class="steps-container">
+      <div class="step-card step-1"><div class="step-icon-box"><i class="fa-solid fa-qrcode"></i></div><h4>1. Scan QR Code</h4><p>Scan the QR code on your table</p></div>
+      <div class="step-card step-2"><div class="step-icon-box"><i class="fa-solid fa-book-open"></i></div><h4>2. Browse Menu</h4><p>Explore delicious food items</p></div>
+      <div class="step-card step-3"><div class="step-icon-box"><i class="fa-solid fa-cart-shopping"></i></div><h4>3. Place Order</h4><p>Add items and confirm your order</p></div>
+      <div class="step-card step-4"><div class="step-icon-box"><i class="fa-solid fa-plate-wheat"></i></div><h4>4. Enjoy Your Meal</h4><p>Our staff prepares and serves your order</p></div>
+    </div>
+  </section>
+</div>
+
+<!-- ===== MENU PAGE ===== -->
+<div id="menu" class="page">
+  <div class="page-head">
+    <div class="section-subtitle">OUR MENU</div>
+    <h2 class="section-title">Fresh Food, <span>Made For You</span></h2>
+    <p>Tap + to add an item to your order.</p>
+  </div>
+  <div class="categories" id="categories"></div>
+  <div class="menu-grid" id="menu-grid"></div>
+</div>
+
+<!-- ===== ORDER CONFIRM ===== -->
+<div id="confirm" class="page">
+  <div class="confirm-icon"><i class="fa-solid fa-check"></i></div>
+  <h1 class="confirm-title">Order Placed!</h1>
+  <p class="confirm-sub">Hang tight, we're preparing your food.</p>
+  <div class="eta"><i class="fa-regular fa-clock"></i> Estimated time: <span id="eta-time">20–25 min</span></div>
+  <div class="order-summary-card" id="confirm-items"></div>
+  <div class="steps-container mini-steps">
+    <div class="step-card step-2"><div class="step-icon-box"><i class="fa-solid fa-receipt"></i></div><h4>Order received</h4><p>Sent to the kitchen</p></div>
+    <div class="step-card step-4"><div class="step-icon-box"><i class="fa-solid fa-fire-burner"></i></div><h4>Being prepared</h4><p>Cooked fresh for you</p></div>
+    <div class="step-card step-3"><div class="step-icon-box"><i class="fa-solid fa-plate-wheat"></i></div><h4>Served to table</h4><p>Staff brings it over</p></div>
+  </div>
+  <button class="btn btn-primary" onclick="showPage('menu')">Back to Menu</button>
+</div>
+
+<!-- ===== ADMIN PAGE ===== -->
+<div id="admin" class="page">
+  <div class="admin-header">
+    <h2 class="admin-title"><i class="fa-solid fa-chart-line"></i> Dashboard</h2>
+    <div class="admin-controls">
+      <select class="filter-select" id="table-filter" onchange="renderAdmin()">
+        <option value="all">All Tables</option>
+      </select>
+    </div>
+  </div>
+  <div class="revenue-grid" id="revenue-grid"></div>
+  <div class="kanban" id="kanban"></div>
+</div>
+
+<footer class="site-footer">
+  <a class="nav-logo" href="#" onclick="navTo('welcome');return false"><i class="fa-solid fa-qrcode"></i> QR Restaurant</a>
+  <p>Scan, order and relax.</p>
+  <div class="footer-links">
+    <a href="#" onclick="navTo('menu');return false">Menu</a>
+    <a href="#" onclick="navTo('welcome','how-it-works');return false">How It Works</a>
+    <a href="#" onclick="navTo('admin');return false">Admin</a>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="drawer-head">
+    <h2><i class="fa-solid fa-cart-shopping"></i> Your Cart</h2>
+    <button class="close-btn" onclick="closeCart()" aria-label="Close cart"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="cart-items" id="cart-items-list"></div>
+  <div class="drawer-foot" id="cart-foot" style="display:none">
+    <div class="totals">
+      <div class="total-row"><span>Subtotal</span><span id="sub-total">₹0.00</span></div>
+      <div class="total-row"><span>Tax (9%)</span><span id="tax-total">₹0.00</span></div>
+      <div class="total-row grand"><span>Total</span><span id="grand-total">₹0.00</span></div>
+    </div>
+    <button class="btn btn-primary btn-full" onclick="placeOrder()">Place Order</button>
+  </div>
+</div>
+
+<!-- FLOAT CART -->
+<button class="float-cart hidden" id="float-cart" onclick="openCart()">
+  <i class="fa-solid fa-cart-shopping"></i> View Cart • <span id="float-count">0 items</span> • <span id="float-total">₹0</span>
+</button>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
